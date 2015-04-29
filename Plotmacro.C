@@ -760,7 +760,7 @@ void Plotmacro(){
 
   TH1D *FitFinalChi2=(TH1D*) f->Get("h_FitFinalChi2");
   FitFinalChi2->GetXaxis()->SetTitle("The final chi2 term after the Fit");
-  FitFinalChi2->GetXaxis()->SetRangeUser(0,6);
+  //FitFinalChi2->GetXaxis()->SetRangeUser(0,6);
   FitFinalChi2->GetYaxis()->SetTitle("Counts/0.12");
   FitFinalChi2->GetYaxis()->SetTitleOffset(1.2);
   TH1D *FitFinalChi2prob=(TH1D*) f->Get("h_FitFinalChi2prob");
