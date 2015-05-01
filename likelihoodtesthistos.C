@@ -44,13 +44,24 @@ void likelihoodtesthistos(){
   chi2MZP2P2->SetLineStyle(3);
   allchi2->Add(chi2MZP2P2);
 
-  TCanvas *c_allchi2=new TCanvas("c_allchi2","chi2 for all fit-hypothesis",1000,1000);
+  TCanvas *c_allchi2=new TCanvas("c_allchi2","chi2 for all fit-hypothesis",1500,1000);
+  TLegend* legendall =new TLegend(0.08,0.18,0.18,0.38);
+  legendall->AddEntry(chi2MHP1P2,"MHP1P2","l");
+  legendall->AddEntry(chi2MZP1P1,"MZP1P1","l");
+  legendall->AddEntry(chi2MHP1P1,"MHP1P1","l");
+  legendall->AddEntry(chi2MZP1P2,"MZP1P2","l");
+  legendall->AddEntry(chi2MHP2P1,"MHP2P1","l");
+  legendall->AddEntry(chi2MZP2P1,"MZP2P1","l");
+  legendall->AddEntry(chi2MHP2P2,"MHP2P2","l");
+  legendall->AddEntry(chi2MZP2P2,"MZP2P2","l");
+
   allchi2->Draw("nostack");
   allchi2->GetXaxis()->SetRangeUser(0,6);
   allchi2->GetYaxis()->SetTitleOffset(1.5);
   allchi2->GetXaxis()->SetTitle("#chi^2");
   allchi2->GetYaxis()->SetTitle("counts/0.125");
   allchi2->Draw("nostack");
+  legendall->Draw();
   //----------------------------------------------------------------
   //all chi2 likelihood histos:
 
@@ -88,123 +99,622 @@ void likelihoodtesthistos(){
   chi2likelihoodMZP2P2->SetLineStyle(3);
   allchi2likelihood->Add(chi2likelihoodMZP2P2);
 
-  TCanvas *c_allchi2likelihood=new TCanvas("c_allchi2likelihood","chi2likelihood for all fit-hypothesis",1000,1000);
+  TCanvas *c_allchi2likelihood=new TCanvas("c_allchi2likelihood","chi2likelihood for all fit-hypothesis",1500,1000);
   allchi2likelihood->Draw("nostack");
   allchi2likelihood->GetYaxis()->SetTitleOffset(2);
   allchi2likelihood->GetXaxis()->SetTitle("#chi^2");
   allchi2likelihood->GetYaxis()->SetTitle("counts/0.125");
   allchi2likelihood->Draw("nostack");
+  legendall->Draw();
 
   //------------------------------------------------------------------------------------
   // all L-functions
   THStack *allL = new THStack("allL","L for all fit-hypothesis");
-    TH1D *LMHP1P2 = (TH1D*) f->Get("h_Likelihoodh");
-    LMHP1P2->SetLineColor(kRed);
-    LMHP1P2->SetLineStyle(1);
-    allL->Add(LMHP1P2);
-    TH1D *LMZP1P1 = (TH1D*) f->Get("h_Likelihoodb");
-    LMZP1P1->SetLineColor(kBlue);
-    LMZP1P1->SetLineStyle(3);
-    allL->Add(LMZP1P1);
-    TH1D *LMHP1P1 = (TH1D*) f->Get("h_Likelihoodhalt");
-    LMHP1P1->SetLineColor(kBlue);
-    LMHP1P1->SetLineStyle(1);
-    allL->Add(LMHP1P1);
-    TH1D *LMZP1P2 = (TH1D*) f->Get("h_Likelihoodbalt");
-    LMZP1P2->SetLineColor(kRed);
-    LMZP1P2->SetLineStyle(3);
-    allL->Add(LMZP1P2);
-    TH1D *LMHP2P1 = (TH1D*) f->Get("h_Likelihoodhalt2");
-    LMHP2P1->SetLineColor(kBlack);
-    LMHP2P1->SetLineStyle(1);
-    allL->Add(LMHP2P1);
-    TH1D *LMZP2P1 = (TH1D*) f->Get("h_Likelihoodbalt2");
-    LMZP2P1->SetLineColor(kBlack);
-    LMZP2P1->SetLineStyle(3);
-    allL->Add(LMZP2P1);
-    TH1D *LMHP2P2 = (TH1D*) f->Get("h_Likelihoodhalt3");
-    LMHP2P2->SetLineColor(kViolet);
-    LMHP2P2->SetLineStyle(1);
-    allL->Add(LMHP2P2);
-    TH1D *LMZP2P2 = (TH1D*) f->Get("h_Likelihoodbalt3");
-    LMZP2P2->SetLineColor(kViolet);
-    LMZP2P2->SetLineStyle(3);
-    allL->Add(LMZP2P2);
+  TH1D *LMHP1P2 = (TH1D*) f->Get("h_Likelihoodh");
+  LMHP1P2->SetLineColor(kRed);
+  LMHP1P2->SetLineStyle(1);
+  allL->Add(LMHP1P2);
+  TH1D *LMZP1P1 = (TH1D*) f->Get("h_Likelihoodb");
+  LMZP1P1->SetLineColor(kBlue);
+  LMZP1P1->SetLineStyle(3);
+  allL->Add(LMZP1P1);
+  TH1D *LMHP1P1 = (TH1D*) f->Get("h_Likelihoodhalt");
+  LMHP1P1->SetLineColor(kBlue);
+  LMHP1P1->SetLineStyle(1);
+  allL->Add(LMHP1P1);
+  TH1D *LMZP1P2 = (TH1D*) f->Get("h_Likelihoodbalt");
+  LMZP1P2->SetLineColor(kRed);
+  LMZP1P2->SetLineStyle(3);
+  allL->Add(LMZP1P2);
+  TH1D *LMHP2P1 = (TH1D*) f->Get("h_Likelihoodhalt2");
+  LMHP2P1->SetLineColor(kBlack);
+  LMHP2P1->SetLineStyle(1);
+  allL->Add(LMHP2P1);
+  TH1D *LMZP2P1 = (TH1D*) f->Get("h_Likelihoodbalt2");
+  LMZP2P1->SetLineColor(kBlack);
+  LMZP2P1->SetLineStyle(3);
+  allL->Add(LMZP2P1);
+  TH1D *LMHP2P2 = (TH1D*) f->Get("h_Likelihoodhalt3");
+  LMHP2P2->SetLineColor(kViolet);
+  LMHP2P2->SetLineStyle(1);
+  allL->Add(LMHP2P2);
+  TH1D *LMZP2P2 = (TH1D*) f->Get("h_Likelihoodbalt3");
+  LMZP2P2->SetLineColor(kViolet);
+  LMZP2P2->SetLineStyle(3);
+  allL->Add(LMZP2P2);
 
-    TCanvas *c_allL=new TCanvas("c_allL","L for all fit-hypothesis",1000,1000);
-    allL->Draw("nostack");
-    allL->GetYaxis()->SetTitleOffset(2);
-    allL->GetXaxis()->SetTitle("L");
-    allL->GetYaxis()->SetTitle("counts/(5*10^-5)");
-    allL->Draw("nostack");
+  TCanvas *c_allL=new TCanvas("c_allL","L for all fit-hypothesis",1500,1000);
+  allL->Draw("nostack");
+  allL->GetYaxis()->SetTitleOffset(2);
+  allL->GetXaxis()->SetTitle("L");
+  allL->GetYaxis()->SetTitle("counts/(5*10^-5)");
+  allL->Draw("nostack");
+  legendall->Draw();
 
-    //------------------------------------------------------------------------------------
-      // all LLikelihood-functions
-      THStack *allLlikelihood = new THStack("allLlikelihood","Llikelihood for all fit-hypothesis");
-        TH1D *LlikelihoodMHP1P2 = (TH1D*) f->Get("h_Likelihoodhlikelihood");
-        LlikelihoodMHP1P2->SetLineColor(kRed);
-        LlikelihoodMHP1P2->SetLineStyle(1);
-        allLlikelihood->Add(LlikelihoodMHP1P2);
-        TH1D *LlikelihoodMZP1P1 = (TH1D*) f->Get("h_Likelihoodblikelihood");
-        LlikelihoodMZP1P1->SetLineColor(kBlue);
-        LlikelihoodMZP1P1->SetLineStyle(3);
-        allLlikelihood->Add(LlikelihoodMZP1P1);
-        TH1D *LlikelihoodMHP1P1 = (TH1D*) f->Get("h_Likelihoodhaltlikelihood");
-        LlikelihoodMHP1P1->SetLineColor(kBlue);
-        LlikelihoodMHP1P1->SetLineStyle(1);
-        allLlikelihood->Add(LlikelihoodMHP1P1);
-        TH1D *LlikelihoodMZP1P2 = (TH1D*) f->Get("h_Likelihoodbaltlikelihood");
-        LlikelihoodMZP1P2->SetLineColor(kRed);
-        LlikelihoodMZP1P2->SetLineStyle(3);
-        allLlikelihood->Add(LlikelihoodMZP1P2);
-        TH1D *LlikelihoodMHP2P1 = (TH1D*) f->Get("h_Likelihoodhalt2likelihood");
-        LlikelihoodMHP2P1->SetLineColor(kBlack);
-        LlikelihoodMHP2P1->SetLineStyle(1);
-        allLlikelihood->Add(LlikelihoodMHP2P1);
-        TH1D *LlikelihoodMZP2P1 = (TH1D*) f->Get("h_Likelihoodbalt2likelihood");
-        LlikelihoodMZP2P1->SetLineColor(kBlack);
-        LlikelihoodMZP2P1->SetLineStyle(3);
-        allLlikelihood->Add(LlikelihoodMZP2P1);
-        TH1D *LlikelihoodMHP2P2 = (TH1D*) f->Get("h_Likelihoodhalt3likelihood");
-        LlikelihoodMHP2P2->SetLineColor(kViolet);
-        LlikelihoodMHP2P2->SetLineStyle(1);
-        allLlikelihood->Add(LlikelihoodMHP2P2);
-        TH1D *LlikelihoodMZP2P2 = (TH1D*) f->Get("h_Likelihoodbalt3likelihood");
-        LlikelihoodMZP2P2->SetLineColor(kViolet);
-        LlikelihoodMZP2P2->SetLineStyle(3);
-        allLlikelihood->Add(LlikelihoodMZP2P2);
+  //------------------------------------------------------------------------------------
+  // all LLikelihood-functions
+  THStack *allLlikelihood = new THStack("allLlikelihood","Llikelihood for all fit-hypothesis");
+  TH1D *LlikelihoodMHP1P2 = (TH1D*) f->Get("h_Likelihoodhlikelihood");
+  LlikelihoodMHP1P2->SetLineColor(kRed);
+  LlikelihoodMHP1P2->SetLineStyle(1);
+  allLlikelihood->Add(LlikelihoodMHP1P2);
+  TH1D *LlikelihoodMZP1P1 = (TH1D*) f->Get("h_Likelihoodblikelihood");
+  LlikelihoodMZP1P1->SetLineColor(kBlue);
+  LlikelihoodMZP1P1->SetLineStyle(3);
+  allLlikelihood->Add(LlikelihoodMZP1P1);
+  TH1D *LlikelihoodMHP1P1 = (TH1D*) f->Get("h_Likelihoodhaltlikelihood");
+  LlikelihoodMHP1P1->SetLineColor(kBlue);
+  LlikelihoodMHP1P1->SetLineStyle(1);
+  allLlikelihood->Add(LlikelihoodMHP1P1);
+  TH1D *LlikelihoodMZP1P2 = (TH1D*) f->Get("h_Likelihoodbaltlikelihood");
+  LlikelihoodMZP1P2->SetLineColor(kRed);
+  LlikelihoodMZP1P2->SetLineStyle(3);
+  allLlikelihood->Add(LlikelihoodMZP1P2);
+  TH1D *LlikelihoodMHP2P1 = (TH1D*) f->Get("h_Likelihoodhalt2likelihood");
+  LlikelihoodMHP2P1->SetLineColor(kBlack);
+  LlikelihoodMHP2P1->SetLineStyle(1);
+  allLlikelihood->Add(LlikelihoodMHP2P1);
+  TH1D *LlikelihoodMZP2P1 = (TH1D*) f->Get("h_Likelihoodbalt2likelihood");
+  LlikelihoodMZP2P1->SetLineColor(kBlack);
+  LlikelihoodMZP2P1->SetLineStyle(3);
+  allLlikelihood->Add(LlikelihoodMZP2P1);
+  TH1D *LlikelihoodMHP2P2 = (TH1D*) f->Get("h_Likelihoodhalt3likelihood");
+  LlikelihoodMHP2P2->SetLineColor(kViolet);
+  LlikelihoodMHP2P2->SetLineStyle(1);
+  allLlikelihood->Add(LlikelihoodMHP2P2);
+  TH1D *LlikelihoodMZP2P2 = (TH1D*) f->Get("h_Likelihoodbalt3likelihood");
+  LlikelihoodMZP2P2->SetLineColor(kViolet);
+  LlikelihoodMZP2P2->SetLineStyle(3);
+  allLlikelihood->Add(LlikelihoodMZP2P2);
 
-        TCanvas *c_allLlikelihood=new TCanvas("c_allLlikelihood","Llikelihood for all fit-hypothesis",1000,1000);
-        allLlikelihood->Draw("nostack");
-        allLlikelihood->GetYaxis()->SetTitleOffset(2);
-        allLlikelihood->GetXaxis()->SetTitle("L");
-        allLlikelihood->GetYaxis()->SetTitle("counts/(5*10^-5)");
-        allLlikelihood->Draw("nostack");
-
-
-
-
+  TCanvas *c_allLlikelihood=new TCanvas("c_allLlikelihood","Llikelihood for all fit-hypothesis",1500,1000);
+  allLlikelihood->Draw("nostack");
+  allLlikelihood->GetYaxis()->SetTitleOffset(2);
+  allLlikelihood->GetXaxis()->SetTitle("L");
+  allLlikelihood->GetYaxis()->SetTitle("counts/(5*10^-5)");
+  allLlikelihood->Draw("nostack");
+  legendall->Draw();
 
 
+  //----------------------------------------------------------------------------
+  // all chi2-prob
+
+  THStack *allchi2prob = new THStack("allchi2prob","chi2prob for all fit-hypothesis");
+  TH1D *chi2probMHP1P2 = (TH1D*) f->Get("h_FitFinalChi2probh");
+  chi2probMHP1P2->SetLineColor(kRed);
+  chi2probMHP1P2->SetLineStyle(1);
+  allchi2prob->Add(chi2probMHP1P2);
+  TH1D *chi2probMZP1P1 = (TH1D*) f->Get("h_FitFinalChi2probb");
+  chi2probMZP1P1->SetLineColor(kBlue);
+  chi2probMZP1P1->SetLineStyle(3);
+  allchi2prob->Add(chi2probMZP1P1);
+  TH1D *chi2probMHP1P1 = (TH1D*) f->Get("h_FitFinalChi2probhalt");
+  chi2probMHP1P1->SetLineColor(kBlue);
+  chi2probMHP1P1->SetLineStyle(1);
+  allchi2prob->Add(chi2probMHP1P1);
+  TH1D *chi2probMZP1P2 = (TH1D*) f->Get("h_FitFinalChi2probbalt");
+  chi2probMZP1P2->SetLineColor(kRed);
+  chi2probMZP1P2->SetLineStyle(3);
+  allchi2prob->Add(chi2probMZP1P2);
+  TH1D *chi2probMHP2P1 = (TH1D*) f->Get("h_FitFinalChi2probhalt2");
+  chi2probMHP2P1->SetLineColor(kBlack);
+  chi2probMHP2P1->SetLineStyle(1);
+  allchi2prob->Add(chi2probMHP2P1);
+  TH1D *chi2probMZP2P1 = (TH1D*) f->Get("h_FitFinalChi2probbalt2");
+  chi2probMZP2P1->SetLineColor(kBlack);
+  chi2probMZP2P1->SetLineStyle(3);
+  allchi2->Add(chi2MZP2P1);
+  TH1D *chi2probMHP2P2 = (TH1D*) f->Get("h_FitFinalChi2probhalt3");
+  chi2probMHP2P2->SetLineColor(kViolet);
+  chi2probMHP2P2->SetLineStyle(1);
+  allchi2prob->Add(chi2probMHP2P2);
+  TH1D *chi2probMZP2P2 = (TH1D*) f->Get("h_FitFinalChi2probbalt3");
+  chi2probMZP2P2->SetLineColor(kViolet);
+  chi2probMZP2P2->SetLineStyle(3);
+  allchi2prob->Add(chi2probMZP2P2);
+
+  TCanvas *c_allchi2prob=new TCanvas("c_allchi2prob","chi2prob for all fit-hypothesis",1500,1000);
+  allchi2prob->Draw("nostack");
+  //allchi2prob->GetXaxis()->SetRangeUser(0,6);
+  allchi2prob->GetYaxis()->SetTitleOffset(2);
+  allchi2prob->GetXaxis()->SetTitle("prob(#chi^2)");
+  allchi2prob->GetYaxis()->SetTitle("counts/0.1");
+  allchi2prob->Draw("nostack");
+  legendall->Draw();
+
+  //----------------------------------------------------------------------------------------------
+  //compare L and L-Likelihood from MHP1P2 with the other hypothesis
+
+  THStack *LuLLikelihoodcompareMZP1P1= new THStack("LuLLikelihoodcompareMZP1P1","L and L-Likelihood from MHP1P2 in comparison with MZP1P1");
+  TLegend *legendcompareMHP1P2uMZP1P1=new TLegend(0.05,0.18,0.25,0.38);
+  legendcompareMHP1P2uMZP1P1->AddEntry(LMHP1P2,"MHP1P2","l");
+  legendcompareMHP1P2uMZP1P1->AddEntry(LMZP1P1,"MZP1P1","l");
+  LuLLikelihoodcompareMZP1P1->Add(LMHP1P2);
+  LuLLikelihoodcompareMZP1P1->Add(LlikelihoodMHP1P2);
+  LuLLikelihoodcompareMZP1P1->Add(LMZP1P1);
+  LuLLikelihoodcompareMZP1P1->Add(LlikelihoodMZP1P1);
+  THStack *LuLLikelihoodcompareMHP1P1= new THStack("LuLLikelihoodcompareMHP1P1","L and L-Likelihood from MHP1P2 in comparison with MHP1P1");
+  TLegend *legendcompareMHP1P2uMHP1P1=new TLegend(0.05,0.18,0.25,0.38);
+  legendcompareMHP1P2uMHP1P1->AddEntry(LMHP1P2,"MHP1P2","l");
+  legendcompareMHP1P2uMHP1P1->AddEntry(LMHP1P1,"MHP1P1","l");
+  LuLLikelihoodcompareMHP1P1->Add(LMHP1P2);
+  LuLLikelihoodcompareMHP1P1->Add(LlikelihoodMHP1P2);
+  LuLLikelihoodcompareMHP1P1->Add(LMHP1P1);
+  LuLLikelihoodcompareMHP1P1->Add(LlikelihoodMHP1P1);
+  THStack *LuLLikelihoodcompareMZP1P2= new THStack("LuLLikelihoodcompareMZP1P2","L and L-Likelihood from MHP1P2 in comparison with MZP1P2");
+  TLegend *legendcompareMHP1P2uMZP1P2=new TLegend(0.05,0.18,0.25,0.38);
+  legendcompareMHP1P2uMZP1P2->AddEntry(LMHP1P2,"MHP1P2","l");
+  legendcompareMHP1P2uMZP1P2->AddEntry(LMZP1P2,"MZP1P2","l");
+  LuLLikelihoodcompareMZP1P2->Add(LMHP1P2);
+  LuLLikelihoodcompareMZP1P2->Add(LlikelihoodMHP1P2);
+  LuLLikelihoodcompareMZP1P2->Add(LMZP1P2);
+  LuLLikelihoodcompareMZP1P2->Add(LlikelihoodMZP1P2);
+  THStack *LuLLikelihoodcompareMHP2P1= new THStack("LuLLikelihoodcompareMHP2P1","L and L-Likelihood from MHP1P2 in comparison with MHP2P1");
+  TLegend *legendcompareMHP1P2uMHP2P1=new TLegend(0.05,0.18,0.25,0.38);
+  legendcompareMHP1P2uMHP2P1->AddEntry(LMHP1P2,"MHP1P2","l");
+  legendcompareMHP1P2uMHP2P1->AddEntry(LMHP2P1,"MHP2P1","l");
+  LuLLikelihoodcompareMHP2P1->Add(LMHP1P2);
+  LuLLikelihoodcompareMHP2P1->Add(LlikelihoodMHP1P2);
+  LuLLikelihoodcompareMHP2P1->Add(LMHP2P1);
+  LuLLikelihoodcompareMHP2P1->Add(LlikelihoodMHP2P1);
+  THStack *LuLLikelihoodcompareMZP2P1= new THStack("LuLLikelihoodcompareMZP2P1","L and L-Likelihood from MHP1P2 in comparison with MZP2P1");
+  TLegend *legendcompareMHP1P2uMZP2P1=new TLegend(0.05,0.18,0.25,0.38);
+  legendcompareMHP1P2uMZP2P1->AddEntry(LMHP1P2,"MHP1P2","l");
+  legendcompareMHP1P2uMZP2P1->AddEntry(LMHP2P1,"MZP2P1","l");
+  LuLLikelihoodcompareMZP2P1->Add(LMHP1P2);
+  LuLLikelihoodcompareMZP2P1->Add(LlikelihoodMHP1P2);
+  LuLLikelihoodcompareMZP2P1->Add(LMZP2P1);
+  LuLLikelihoodcompareMZP2P1->Add(LlikelihoodMZP2P1);
+  THStack *LuLLikelihoodcompareMHP2P2= new THStack("LuLLikelihoodcompareMHP2P2","L and L-Likelihood from MHP1P2 in comparison with MHP2P2");
+  TLegend *legendcompareMHP1P2uMHP2P2=new TLegend(0.05,0.18,0.25,0.38);
+  legendcompareMHP1P2uMHP2P2->AddEntry(LMHP1P2,"MHP1P2","l");
+  legendcompareMHP1P2uMHP2P2->AddEntry(LMHP2P2,"MHP2P2","l");
+  LuLLikelihoodcompareMHP2P2->Add(LMHP1P2);
+  LuLLikelihoodcompareMHP2P2->Add(LlikelihoodMHP1P2);
+  LuLLikelihoodcompareMHP2P2->Add(LMHP2P2);
+  LuLLikelihoodcompareMHP2P2->Add(LlikelihoodMHP2P2);
+  THStack *LuLLikelihoodcompareMZP2P2= new THStack("LuLLikelihoodcompareMZP2P2","L and L-Likelihood from MHP1P2 in comparison with MZP2P2");
+  TLegend *legendcompareMHP1P2uMZP2P2=new TLegend(0.05,0.18,0.25,0.38);
+  legendcompareMHP1P2uMZP2P2->AddEntry(LMHP1P2,"MHP1P2","l");
+  legendcompareMHP1P2uMZP2P2->AddEntry(LMZP2P2,"MZP2P2","l");
+  LuLLikelihoodcompareMZP2P2->Add(LMHP1P2);
+  LuLLikelihoodcompareMZP2P2->Add(LlikelihoodMHP1P2);
+  LuLLikelihoodcompareMZP2P2->Add(LMZP2P2);
+  LuLLikelihoodcompareMZP2P2->Add(LlikelihoodMZP2P2);
+
+  TCanvas *c_LuLLikelihoodcompareall=new TCanvas("c_LuLLikelihoodcompareall","L and L-Likelihood from MHP1P2 in comparison with the other hypothesis",1000,1000);
+  c_LuLLikelihoodcompareall->Divide(2,4);
+  c_LuLLikelihoodcompareall->cd(1);
+  LuLLikelihoodcompareMZP1P1->Draw("nostack");
+  LuLLikelihoodcompareMZP1P1->GetXaxis()->SetTitle("L");
+  LuLLikelihoodcompareMZP1P1->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLLikelihoodcompareMZP1P1->Draw("nostack");
+  legendcompareMHP1P2uMZP1P1->Draw();
+  c_LuLLikelihoodcompareall->cd(2);
+  LuLLikelihoodcompareMHP1P1->Draw("nostack");
+  LuLLikelihoodcompareMHP1P1->GetXaxis()->SetTitle("L");
+  LuLLikelihoodcompareMHP1P1->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLLikelihoodcompareMHP1P1->Draw("nostack");
+  legendcompareMHP1P2uMHP1P1->Draw();
+  c_LuLLikelihoodcompareall->cd(3);
+  LuLLikelihoodcompareMZP1P2->Draw("nostack");
+  LuLLikelihoodcompareMZP1P2->GetXaxis()->SetTitle("L");
+  LuLLikelihoodcompareMZP1P2->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLLikelihoodcompareMZP1P2->Draw("nostack");
+  legendcompareMHP1P2uMZP1P2->Draw();
+  c_LuLLikelihoodcompareall->cd(4);
+  LuLLikelihoodcompareMHP2P1->Draw("nostack");
+  LuLLikelihoodcompareMHP2P1->GetXaxis()->SetTitle("L");
+  LuLLikelihoodcompareMHP2P1->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLLikelihoodcompareMHP2P1->Draw("nostack");
+  legendcompareMHP1P2uMHP2P1->Draw();
+  c_LuLLikelihoodcompareall->cd(5);
+  LuLLikelihoodcompareMZP2P1->Draw("nostack");
+  LuLLikelihoodcompareMZP2P1->GetXaxis()->SetTitle("L");
+  LuLLikelihoodcompareMZP2P1->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLLikelihoodcompareMZP2P1->Draw("nostack");
+  legendcompareMHP1P2uMZP2P1->Draw();
+  c_LuLLikelihoodcompareall->cd(6);
+  LuLLikelihoodcompareMHP2P2->Draw("nostack");
+  LuLLikelihoodcompareMHP2P2->GetXaxis()->SetTitle("L");
+  LuLLikelihoodcompareMHP2P2->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLLikelihoodcompareMHP2P2->Draw("nostack");
+  legendcompareMHP1P2uMHP2P2->Draw();
+  c_LuLLikelihoodcompareall->cd(7);
+  LuLLikelihoodcompareMZP2P2->Draw("nostack");
+  LuLLikelihoodcompareMZP2P2->GetXaxis()->SetTitle("L");
+  LuLLikelihoodcompareMZP2P2->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLLikelihoodcompareMZP2P2->Draw("nostack");
+  legendcompareMHP1P2uMZP2P2->Draw();
+  //---------------------------------------------------------------------
+  //compare chi2 from MHP1P2 with the other hypothesis
+
+   THStack *chi2compareMZP1P1= new THStack("chi2compareMZP1P1","chi2 from MHP1P2 in comparison with MZP1P1");
+   chi2compareMZP1P1->Add(chi2MHP1P2);
+   chi2compareMZP1P1->Add(chi2MZP1P1);
+   THStack *chi2compareMHP1P1= new THStack("chi2compareMHP1P1","chi2 from MHP1P2 in comparison with MHP1P1");
+   chi2compareMHP1P1->Add(chi2MHP1P2);
+   chi2compareMHP1P1->Add(chi2MHP1P1);
+   THStack *chi2compareMZP1P2= new THStack("chi2compareMZP1P2","chi2 from MHP1P2 in comparison with MZP1P2");
+   chi2compareMZP1P2->Add(chi2MHP1P2);
+   chi2compareMZP1P2->Add(chi2MZP1P2);
+   THStack *chi2compareMHP2P1= new THStack("chi2compareMHP2P1","chi2 from MHP1P2 in comparison with MHP2P1");
+   chi2compareMHP2P1->Add(chi2MHP1P2);
+   chi2compareMHP2P1->Add(chi2MHP2P1);
+   THStack *chi2compareMZP2P1= new THStack("chi2compareMZP2P1","chi2 from MHP1P2 in comparison with MZP2P1");
+   chi2compareMZP2P1->Add(chi2MHP1P2);
+   chi2compareMZP2P1->Add(chi2MZP2P1);
+   THStack *chi2compareMHP2P2= new THStack("chi2compareMHP2P2","chi2 from MHP1P2 in comparison with MHP2P2");
+   chi2compareMHP2P2->Add(chi2MHP1P2);
+   chi2compareMHP2P2->Add(chi2MHP2P2);
+   THStack *chi2compareMZP2P2= new THStack("chi2compareMZP2P2","chi2 from MHP1P2 in comparison with MZP2P2");
+   chi2compareMZP2P2->Add(chi2MHP1P2);
+   chi2compareMZP2P2->Add(chi2MZP2P2);
+
+   TCanvas *c_chi2compareall=new TCanvas("c_chi2compareall","chi2 from MHP1P2 in comparison with the othe hypothesis",1000,1000);
+   c_chi2compareall->Divide(2,4);
+   c_chi2compareall->cd(1);
+   chi2compareMZP1P1->Draw("nostack");
+   chi2compareMZP1P1->GetXaxis()->SetTitle("#chi^2");
+   chi2compareMZP1P1->GetXaxis()->SetRangeUser(0,6);
+   chi2compareMZP1P1->GetYaxis()->SetTitle("Counts/0.125");
+   chi2compareMZP1P1->Draw("nostack");
+   legendcompareMHP1P2uMZP1P1->Draw();
+   c_chi2compareall->cd(2);
+   chi2compareMHP1P1->Draw("nostack");
+   chi2compareMHP1P1->GetXaxis()->SetTitle("#chi^2");
+   chi2compareMHP1P1->GetXaxis()->SetRangeUser(0,6);
+   chi2compareMHP1P1->GetYaxis()->SetTitle("Counts/0.125");
+   chi2compareMHP1P1->Draw("nostack");
+   legendcompareMHP1P2uMHP1P1->Draw();
+   c_chi2compareall->cd(3);
+   chi2compareMZP1P2->Draw("nostack");
+   chi2compareMZP1P2->GetXaxis()->SetTitle("#chi^2");
+   chi2compareMZP1P2->GetXaxis()->SetRangeUser(0,6);
+   chi2compareMZP1P2->GetYaxis()->SetTitle("Counts/0.125");
+   chi2compareMZP1P2->Draw("nostack");
+   legendcompareMHP1P2uMZP1P2->Draw();
+   c_chi2compareall->cd(4);
+   chi2compareMHP2P1->Draw("nostack");
+   chi2compareMHP2P1->GetXaxis()->SetTitle("#chi^2");
+   chi2compareMHP2P1->GetXaxis()->SetRangeUser(0,6);
+   chi2compareMHP2P1->GetYaxis()->SetTitle("Counts/0.125");
+   chi2compareMHP2P1->Draw("nostack");
+   legendcompareMHP1P2uMHP2P1->Draw();
+   c_chi2compareall->cd(5);
+   chi2compareMZP2P1->Draw("nostack");
+   chi2compareMZP2P1->GetXaxis()->SetTitle("#chi^2");
+   chi2compareMZP2P1->GetXaxis()->SetRangeUser(0,6);
+   chi2compareMZP2P1->GetYaxis()->SetTitle("Counts/0.125");
+   chi2compareMZP2P1->Draw("nostack");
+   legendcompareMHP1P2uMZP2P1->Draw();
+   c_chi2compareall->cd(6);
+   chi2compareMHP2P2->Draw("nostack");
+   chi2compareMHP2P2->GetXaxis()->SetTitle("#chi^2");
+   chi2compareMHP2P2->GetXaxis()->SetRangeUser(0,6);
+   chi2compareMHP2P2->GetYaxis()->SetTitle("Counts/0.125");
+   chi2compareMHP2P2->Draw("nostack");
+   legendcompareMHP1P2uMHP2P2->Draw();
+   c_chi2compareall->cd(7);
+   chi2compareMZP2P2->Draw("nostack");
+   chi2compareMZP2P2->GetXaxis()->SetTitle("#chi^2");
+   chi2compareMZP2P2->GetXaxis()->SetRangeUser(0,6);
+   chi2compareMZP2P2->GetYaxis()->SetTitle("Counts/0.125");
+   chi2compareMZP2P2->Draw("nostack");
+   legendcompareMHP1P2uMZP2P2->Draw();
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+   //compare chi2prob from MHP1P2 with the other hypothesis
+
+      THStack *chi2probcompareMZP1P1= new THStack("chi2probcompareMZP1P1","chi2prob from MHP1P2 in comparison with MZP1P1");
+      chi2probcompareMZP1P1->Add(chi2probMHP1P2);
+      chi2probcompareMZP1P1->Add(chi2probMZP1P1);
+      THStack *chi2probcompareMHP1P1= new THStack("chi2probcompareMHP1P1","chi2prob from MHP1P2 in comparison with MHP1P1");
+      chi2probcompareMHP1P1->Add(chi2probMHP1P2);
+      chi2probcompareMHP1P1->Add(chi2probMHP1P1);
+      THStack *chi2probcompareMZP1P2= new THStack("chi2probcompareMZP1P2","chi2prob from MHP1P2 in comparison with MZP1P2");
+      chi2probcompareMZP1P2->Add(chi2probMHP1P2);
+      chi2probcompareMZP1P2->Add(chi2probMZP1P2);
+      THStack *chi2probcompareMHP2P1= new THStack("chi2probcompareMHP2P1","chi2prob from MHP1P2 in comparison with MHP2P1");
+      chi2probcompareMHP2P1->Add(chi2probMHP1P2);
+      chi2probcompareMHP2P1->Add(chi2probMHP2P1);
+      THStack *chi2probcompareMZP2P1= new THStack("chi2probcompareMZP2P1","chi2prob from MHP1P2 in comparison with MZP2P1");
+      chi2probcompareMZP2P1->Add(chi2probMHP1P2);
+      chi2probcompareMZP2P1->Add(chi2probMZP2P1);
+      THStack *chi2probcompareMHP2P2= new THStack("chi2probcompareMHP2P2","chi2prob from MHP1P2 in comparison with MHP2P2");
+      chi2probcompareMHP2P2->Add(chi2probMHP1P2);
+      chi2probcompareMHP2P2->Add(chi2probMHP2P2);
+      THStack *chi2probcompareMZP2P2= new THStack("chi2probcompareMZP2P2","chi2prob from MHP1P2 in comparison with MZP2P2");
+      chi2probcompareMZP2P2->Add(chi2probMHP1P2);
+      chi2probcompareMZP2P2->Add(chi2probMZP2P2);
+
+      TCanvas *c_chi2probcompareall=new TCanvas("c_chi2probcompareall","chi2prob from MHP1P2 in comparison with the othe hypothesis",1000,1000);
+      c_chi2probcompareall->Divide(2,4);
+      c_chi2probcompareall->cd(1);
+      chi2probcompareMZP1P1->Draw("nostack");
+      chi2probcompareMZP1P1->GetXaxis()->SetTitle("prob(#chi^2)");
+      chi2probcompareMZP1P1->GetYaxis()->SetTitle("Counts/0.125");
+      chi2probcompareMZP1P1->Draw("nostack");
+      legendcompareMHP1P2uMZP1P1->Draw();
+      c_chi2probcompareall->cd(2);
+      chi2probcompareMHP1P1->Draw("nostack");
+      chi2probcompareMHP1P1->GetXaxis()->SetTitle("prob(#chi^2)");
+      chi2probcompareMHP1P1->GetYaxis()->SetTitle("Counts/0.125");
+      chi2probcompareMHP1P1->Draw("nostack");
+      legendcompareMHP1P2uMHP1P1->Draw();
+      c_chi2probcompareall->cd(3);
+      chi2probcompareMZP1P2->Draw("nostack");
+      chi2probcompareMZP1P2->GetXaxis()->SetTitle("prob(#chi^2)");
+      chi2probcompareMZP1P2->GetYaxis()->SetTitle("Counts/0.125");
+      chi2probcompareMZP1P2->Draw("nostack");
+      legendcompareMHP1P2uMZP1P2->Draw();
+      c_chi2probcompareall->cd(4);
+      chi2probcompareMHP2P1->Draw("nostack");
+      chi2probcompareMHP2P1->GetXaxis()->SetTitle("prob(#chi^2)");
+      chi2probcompareMHP2P1->GetYaxis()->SetTitle("Counts/0.125");
+      chi2probcompareMHP2P1->Draw("nostack");
+      legendcompareMHP1P2uMHP2P1->Draw();
+      c_chi2probcompareall->cd(5);
+      chi2probcompareMZP2P1->Draw("nostack");
+      chi2probcompareMZP2P1->GetXaxis()->SetTitle("prob(#chi^2)");
+      chi2probcompareMZP2P1->GetYaxis()->SetTitle("Counts/0.125");
+      chi2probcompareMZP2P1->Draw("nostack");
+      legendcompareMHP1P2uMZP2P1->Draw();
+      c_chi2probcompareall->cd(6);
+      chi2probcompareMHP2P2->Draw("nostack");
+      chi2probcompareMHP2P2->GetXaxis()->SetTitle("prob(#chi^2)");
+      chi2probcompareMHP2P2->GetYaxis()->SetTitle("Counts/0.125");
+      chi2probcompareMHP2P2->Draw("nostack");
+      legendcompareMHP1P2uMHP2P2->Draw();
+      c_chi2probcompareall->cd(7);
+      chi2probcompareMZP2P2->Draw("nostack");
+      chi2probcompareMZP2P2->GetXaxis()->SetTitle("prob(#chi^2)");
+      chi2probcompareMZP2P2->GetYaxis()->SetTitle("Counts/0.125");
+      chi2probcompareMZP2P2->Draw("nostack");
+      legendcompareMHP1P2uMZP2P2->Draw();
+
+      //--------------------------------------------------------------------------------------------------------------------------
+      //compare chi2likelihood from MHP1P2 with the other hypothesis
+
+         THStack *chi2likelihoodcompareMZP1P1= new THStack("chi2likelihoodcompareMZP1P1","chi2likelihood from MHP1P2 in comparison with MZP1P1");
+         chi2likelihoodcompareMZP1P1->Add(chi2likelihoodMHP1P2);
+         chi2likelihoodcompareMZP1P1->Add(chi2likelihoodMZP1P1);
+         THStack *chi2likelihoodcompareMHP1P1= new THStack("chi2likelihoodcompareMHP1P1","chi2likelihood from MHP1P2 in comparison with MHP1P1");
+         chi2likelihoodcompareMHP1P1->Add(chi2likelihoodMHP1P2);
+         chi2likelihoodcompareMHP1P1->Add(chi2likelihoodMHP1P1);
+         THStack *chi2likelihoodcompareMZP1P2= new THStack("chi2likelihoodcompareMZP1P2","chi2likelihood from MHP1P2 in comparison with MZP1P2");
+         chi2likelihoodcompareMZP1P2->Add(chi2likelihoodMHP1P2);
+         chi2likelihoodcompareMZP1P2->Add(chi2likelihoodMZP1P2);
+         THStack *chi2likelihoodcompareMHP2P1= new THStack("chi2likelihoodcompareMHP2P1","chi2likelihood from MHP1P2 in comparison with MHP2P1");
+         chi2likelihoodcompareMHP2P1->Add(chi2likelihoodMHP1P2);
+         chi2likelihoodcompareMHP2P1->Add(chi2likelihoodMHP2P1);
+         THStack *chi2likelihoodcompareMZP2P1= new THStack("chi2likelihoodcompareMZP2P1","chi2likelihood from MHP1P2 in comparison with MZP2P1");
+         chi2likelihoodcompareMZP2P1->Add(chi2likelihoodMHP1P2);
+         chi2likelihoodcompareMZP2P1->Add(chi2likelihoodMZP2P1);
+         THStack *chi2likelihoodcompareMHP2P2= new THStack("chi2likelihoodcompareMHP2P2","chi2likelihood from MHP1P2 in comparison with MHP2P2");
+         chi2likelihoodcompareMHP2P2->Add(chi2likelihoodMHP1P2);
+         chi2likelihoodcompareMHP2P2->Add(chi2likelihoodMHP2P2);
+         THStack *chi2likelihoodcompareMZP2P2= new THStack("chi2likelihoodcompareMZP2P2","chi2likelihood from MHP1P2 in comparison with MZP2P2");
+         chi2likelihoodcompareMZP2P2->Add(chi2likelihoodMHP1P2);
+         chi2likelihoodcompareMZP2P2->Add(chi2likelihoodMZP2P2);
+
+         TCanvas *c_chi2likelihoodcompareall=new TCanvas("c_chi2likelihoodcompareall","chi2likelihood from MHP1P2 in comparison with the othe hypothesis",1000,1000);
+         c_chi2likelihoodcompareall->Divide(2,4);
+         c_chi2likelihoodcompareall->cd(1);
+         chi2likelihoodcompareMZP1P1->Draw("nostack");
+         chi2likelihoodcompareMZP1P1->GetXaxis()->SetTitle("#chi^2");
+         chi2likelihoodcompareMZP1P1->GetYaxis()->SetTitle("Counts/0.125");
+         chi2likelihoodcompareMZP1P1->Draw("nostack");
+         legendcompareMHP1P2uMZP1P1->Draw();
+         c_chi2likelihoodcompareall->cd(2);
+         chi2likelihoodcompareMHP1P1->Draw("nostack");
+         chi2likelihoodcompareMHP1P1->GetXaxis()->SetTitle("#chi^2");
+         chi2likelihoodcompareMHP1P1->GetYaxis()->SetTitle("Counts/0.125");
+         chi2likelihoodcompareMHP1P1->Draw("nostack");
+         legendcompareMHP1P2uMHP1P1->Draw();
+         c_chi2likelihoodcompareall->cd(3);
+         chi2likelihoodcompareMZP1P2->Draw("nostack");
+         chi2likelihoodcompareMZP1P2->GetXaxis()->SetTitle("#chi^2");
+         chi2likelihoodcompareMZP1P2->GetYaxis()->SetTitle("Counts/0.125");
+         chi2likelihoodcompareMZP1P2->Draw("nostack");
+         legendcompareMHP1P2uMZP1P2->Draw();
+         c_chi2likelihoodcompareall->cd(4);
+         chi2likelihoodcompareMHP2P1->Draw("nostack");
+         chi2likelihoodcompareMHP2P1->GetXaxis()->SetTitle("#chi^2");
+         chi2likelihoodcompareMHP2P1->GetYaxis()->SetTitle("Counts/0.125");
+         chi2likelihoodcompareMHP2P1->Draw("nostack");
+         legendcompareMHP1P2uMHP2P1->Draw();
+         c_chi2likelihoodcompareall->cd(5);
+         chi2likelihoodcompareMZP2P1->Draw("nostack");
+         chi2likelihoodcompareMZP2P1->GetXaxis()->SetTitle("#chi^2");
+         chi2likelihoodcompareMZP2P1->GetYaxis()->SetTitle("Counts/0.125");
+         chi2likelihoodcompareMZP2P1->Draw("nostack");
+         legendcompareMHP1P2uMZP2P1->Draw();
+         c_chi2likelihoodcompareall->cd(6);
+         chi2likelihoodcompareMHP2P2->Draw("nostack");
+         chi2likelihoodcompareMHP2P2->GetXaxis()->SetTitle("#chi^2");
+         chi2likelihoodcompareMHP2P2->GetYaxis()->SetTitle("Counts/0.125");
+         chi2likelihoodcompareMHP2P2->Draw("nostack");
+         legendcompareMHP1P2uMHP2P2->Draw();
+         c_chi2likelihoodcompareall->cd(7);
+         chi2likelihoodcompareMZP2P2->Draw("nostack");
+         chi2likelihoodcompareMZP2P2->GetXaxis()->SetTitle("#chi^2");
+         chi2likelihoodcompareMZP2P2->GetYaxis()->SetTitle("Counts/0.125");
+         chi2likelihoodcompareMZP2P2->Draw("nostack");
+         legendcompareMHP1P2uMZP2P2->Draw();
+
+         c_allchi2->Print("likelihoodhistos.pdf[");
+          c_allchi2->Print("likelihoodhistos.pdf");
+          c_allchi2->Close();
+
+          c_chi2compareall->Print("likelihoodhistos.pdf");
+          c_chi2compareall->Close();
+
+          c_allchi2prob->Print("likelihoodhistos.pdf");
+          c_allchi2prob->Close();
+
+          c_chi2probcompareall->Print("likelihoodhistos.pdf");
+          c_chi2probcompareall->Close();
+
+          c_allchi2likelihood->Print("likelihoodhistos.pdf");
+          c_allchi2likelihood->Close();
+
+          c_chi2likelihoodcompareall->Print("likelihoodhistos.pdf");
+          c_chi2likelihoodcompareall->Close();
+
+          c_allL->Print("likelihoodhistos.pdf");
+          c_allL->Close();
+
+          c_allLlikelihood->Print("likelihoodhistos.pdf");
+          c_allLlikelihood->Close();
+
+          c_LuLLikelihoodcompareall->Print("likelihoodhistos.pdf");
+          c_LuLLikelihoodcompareall->Close();
 
 
+//----------------------------------------------------------------------------------------------
+  //compare L and L-likelihood for all hypothesis
 
+  //MHP1P2:
+  THStack *LuLlikelihoodMHP1P2 =new THStack("LuLlikelihoodMHP1P2","L and L-Likelihood for MHP1P2");
+  LlikelihoodMHP1P2->SetLineColor(kYellow);
+  LuLlikelihoodMHP1P2->Add(LMHP1P2);
+  LuLlikelihoodMHP1P2->Add(LlikelihoodMHP1P2);
+  TLegend* legendLuLlikelihoodMHP1P2 =new TLegend(0.05,0.18,0.25,0.38);
+  legendLuLlikelihoodMHP1P2->AddEntry(LMHP1P2,"MHP1P2","l");
+  legendLuLlikelihoodMHP1P2->AddEntry(LlikelihoodMHP1P2,"MHP1P2-likelihood","l");
+  THStack *LuLlikelihoodMZP1P1 =new THStack("LuLlikelihoodMZP1P1","L and L-Likelihood for MZP1P1");
+  LlikelihoodMZP1P1->SetLineColor(kYellow);
+  LuLlikelihoodMZP1P1->Add(LMZP1P1);
+  LuLlikelihoodMZP1P1->Add(LlikelihoodMZP1P1);
+  TLegend* legendLuLlikelihoodMZP1P1 =new TLegend(0.05,0.18,0.25,0.38);
+  legendLuLlikelihoodMZP1P1->AddEntry(LMZP1P1,"MZP1P1","l");
+  legendLuLlikelihoodMZP1P1->AddEntry(LlikelihoodMZP1P1,"MZP1P1-Likelihood","l");
+  THStack *LuLlikelihoodMHP1P1 =new THStack("LuLlikelihoodMHP1P1","L and L-Likelihood for MHP1P1");
+  LlikelihoodMHP1P1->SetLineColor(kYellow);
+  LuLlikelihoodMHP1P1->Add(LMHP1P1);
+  LuLlikelihoodMHP1P1->Add(LlikelihoodMHP1P1);
+  TLegend* legendLuLlikelihoodMHP1P1 =new TLegend(0.05,0.18,0.25,0.38);
+  legendLuLlikelihoodMHP1P1->AddEntry(LMHP1P1,"MHP1P1","l");
+  legendLuLlikelihoodMHP1P1->AddEntry(LlikelihoodMHP1P1,"MHP1P1-Likelihood","l");
+  THStack *LuLlikelihoodMZP1P2 =new THStack("LuLlikelihoodMZP1P2","L and L-Likelihood for MZP1P2");
+  LlikelihoodMZP1P2->SetLineColor(kYellow);
+  LuLlikelihoodMZP1P2->Add(LMZP1P2);
+  LuLlikelihoodMZP1P2->Add(LlikelihoodMZP1P2);
+  TLegend* legendLuLlikelihoodMZP1P2 =new TLegend(0.05,0.18,0.25,0.38);
+  legendLuLlikelihoodMZP1P2->AddEntry(LMZP1P2,"MZP1P2","l");
+  legendLuLlikelihoodMZP1P2->AddEntry(LlikelihoodMZP1P2,"MZP1P2-Likelihood","l");
+  THStack *LuLlikelihoodMHP2P1 =new THStack("LuLlikelihoodMHP2P1","L and L-Likelihood for MHP2P1");
+  LlikelihoodMHP2P1->SetLineColor(kYellow);
+  LuLlikelihoodMHP2P1->Add(LMHP2P1);
+  LuLlikelihoodMHP2P1->Add(LlikelihoodMHP2P1);
+  TLegend* legendLuLlikelihoodMHP2P1 =new TLegend(0.05,0.18,0.25,0.38);
+  legendLuLlikelihoodMHP2P1->AddEntry(LMHP2P1,"MHP2P1","l");
+  legendLuLlikelihoodMHP2P1->AddEntry(LlikelihoodMHP2P1,"MHP2P1-Likelihood","l");
+  THStack *LuLlikelihoodMZP2P1 =new THStack("LuLlikelihoodMZP2P1","L and L-Likelihood for MZP2P1");
+  LlikelihoodMZP2P1->SetLineColor(kYellow);
+  LuLlikelihoodMZP2P1->Add(LMZP2P1);
+  LuLlikelihoodMZP2P1->Add(LlikelihoodMZP2P1);
+  TLegend* legendLuLlikelihoodMZP2P1 =new TLegend(0.05,0.18,0.25,0.38);
+  legendLuLlikelihoodMZP2P1->AddEntry(LMZP2P1,"MZP2P1","l");
+  legendLuLlikelihoodMZP2P1->AddEntry(LlikelihoodMZP2P1,"MZP2P1-Likelihood","l");
+  THStack *LuLlikelihoodMHP2P2 =new THStack("LuLlikelihoodMHP2P2","L and L-Likelihood for MHP2P2");
+  LlikelihoodMHP2P2->SetLineColor(kYellow);
+  LuLlikelihoodMHP2P2->Add(LMHP2P2);
+  LuLlikelihoodMHP2P2->Add(LlikelihoodMHP2P2);
+  TLegend* legendLuLlikelihoodMHP2P2 =new TLegend(0.05,0.18,0.25,0.38);
+  legendLuLlikelihoodMHP2P2->AddEntry(LMHP2P2,"MHP2P2","l");
+  legendLuLlikelihoodMHP2P2->AddEntry(LlikelihoodMHP2P2,"MHP2P2-Likelihood","l");
+  THStack *LuLlikelihoodMZP2P2 =new THStack("LuLlikelihoodMZP2P2","L and L-Likelihood for MZP2P2");
+  LlikelihoodMZP2P2->SetLineColor(kYellow);
+  LuLlikelihoodMZP2P2->Add(LMZP2P2);
+  LuLlikelihoodMZP2P2->Add(LlikelihoodMZP2P2);
+  TLegend* legendLuLlikelihoodMZP2P2 =new TLegend(0.05,0.18,0.25,0.38);
+  legendLuLlikelihoodMZP2P2->AddEntry(LMZP2P2,"MZP2P2","l");
+  legendLuLlikelihoodMZP2P2->AddEntry(LlikelihoodMZP2P2,"MZP2P2-Likelihood","l");
 
+  TCanvas *c_LuLlikelihood= new TCanvas("c_LuLlikelihood","L and L-Likelihood for all hypothesis",1000,1000);
+  c_LuLlikelihood->Divide(2,4);
+  c_LuLlikelihood->cd(1);
+  LuLlikelihoodMHP1P2->Draw("nostack");
+  gPad->Update();
+  LuLlikelihoodMHP1P2->GetXaxis()->SetTitle("L");
+  LuLlikelihoodMHP1P2->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLlikelihoodMHP1P2->Draw("nostack");
+  legendLuLlikelihoodMHP1P2->Draw();
+  c_LuLlikelihood->cd(2);
+  LuLlikelihoodMZP1P1->Draw("nostack");
+  gPad->Update();
+  LuLlikelihoodMZP1P1->GetXaxis()->SetTitle("L");
+  LuLlikelihoodMZP1P1->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLlikelihoodMZP1P1->Draw("nostack");
+  legendLuLlikelihoodMZP1P1->Draw();
+  c_LuLlikelihood->cd(3);
+  LuLlikelihoodMHP1P1->Draw("nostack");
+  gPad->Update();
+  LuLlikelihoodMHP1P1->GetXaxis()->SetTitle("L");
+  LuLlikelihoodMHP1P1->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLlikelihoodMHP1P1->Draw("nostack");
+  legendLuLlikelihoodMHP1P1->Draw();
+  c_LuLlikelihood->cd(4);
+  LuLlikelihoodMZP1P2->Draw("nostack");
+  gPad->Update();
+  LuLlikelihoodMZP1P2->GetXaxis()->SetTitle("L");
+  LuLlikelihoodMZP1P2->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLlikelihoodMZP1P2->Draw("nostack");
+  legendLuLlikelihoodMZP1P2->Draw();
+  c_LuLlikelihood->cd(5);
+  LuLlikelihoodMHP2P1->Draw("nostack");
+  gPad->Update();
+  LuLlikelihoodMHP2P1->GetXaxis()->SetTitle("L");
+  LuLlikelihoodMHP2P1->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLlikelihoodMHP2P1->Draw("nostack");
+  legendLuLlikelihoodMHP2P1->Draw();
+  c_LuLlikelihood->cd(6);
+  LuLlikelihoodMZP2P1->Draw("nostack");
+  gPad->Update();
+  LuLlikelihoodMZP2P1->GetXaxis()->SetTitle("L");
+  LuLlikelihoodMZP2P1->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLlikelihoodMZP2P1->Draw("nostack");
+  legendLuLlikelihoodMZP2P1->Draw();
+  c_LuLlikelihood->cd(7);
+  LuLlikelihoodMHP2P2->Draw("nostack");
+  gPad->Update();
+  LuLlikelihoodMHP2P2->GetXaxis()->SetTitle("L");
+  LuLlikelihoodMHP2P2->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLlikelihoodMHP2P2->Draw("nostack");
+  legendLuLlikelihoodMHP2P2->Draw();
+  c_LuLlikelihood->cd(8);
+  LuLlikelihoodMZP2P2->Draw("nostack");
+  gPad->Update();
+  LuLlikelihoodMZP2P2->GetXaxis()->SetTitle("L");
+  LuLlikelihoodMZP2P2->GetYaxis()->SetTitle("Counts/(5*10^-5)");
+  LuLlikelihoodMZP2P2->Draw("nostack");
+  legendLuLlikelihoodMZP2P2->Draw();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  c_LuLlikelihood->Print("likelihoodhistos.pdf");
+  c_LuLlikelihood->Print("likelihoodhistos.pdf]");
+  c_LuLlikelihood->Close();
 
 }
